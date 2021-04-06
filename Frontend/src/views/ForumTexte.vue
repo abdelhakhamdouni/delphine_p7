@@ -75,7 +75,7 @@ export default {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorisations': 'Bearer ' + localStorage.getItem('')
+                        'authorization': 'Bearer ' + localStorage.getItem('token')
                     },
                     body: JSON.stringify({ message }),
                     mode: 'cors',

@@ -62,11 +62,12 @@ export default ({
                 .then(res => res.json())
                 .then(response => {
                     console.log(response)
+                    localStorage.setItem('salut', 'salut')
                     localStorage.setItem('idUser', response.idUser);
                     localStorage.setItem('pseudo', response.pseudo);
                     localStorage.setItem('token', response.token);
                     /*localStorage.setItem('token', JSON.stringify(token));*/
-                    //location.replace('http://localhost:8080/forum')
+                    location.replace('http://localhost:8080/forum')
                 })                                                               
                 .catch(error => alert("Erreur : " + error));
             }
