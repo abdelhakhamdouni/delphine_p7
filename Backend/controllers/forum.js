@@ -20,8 +20,8 @@ exports.createForum =(req, res) => {
   console.log(pseudo);
   console.log(texte);
   post.insertPost();*/
-  console.log(req.body.message);
-  const forumReqData = (req.body.message.post);
+  console.log("message :",req.body.message);
+  const forumReqData = (req.body.message);
   console.log(forumReqData);
   if(req.body.message.post.constructor === Object && Object.keys(req.body.message.post).length === 0){
     res.send(400).send({success: false, message: 'Veuillez remplir un champs'});

@@ -68,7 +68,8 @@ export default {
             ){
                 let message = {
                     pseudo: pseudo,
-                    post: post
+                    post: post,
+                    idUser: localStorage.getItem('idUser')
                 }
                 console.log(message);
                 const envoi = {

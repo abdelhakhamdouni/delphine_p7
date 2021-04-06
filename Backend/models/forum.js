@@ -16,9 +16,10 @@ const Forum = function (forum) {
 
 //Route post Forum
 Forum.createForum = (forumReqData, result) => {  
-  sql.query(`INSERT INTO forums (contenuTexte, pseudo) VALUES (?, ?)`, forumReqData, (err, res) => {
+  console.log('modele: ',forumReqData)
+  sql.query(`INSERT INTO forums (contentuTexte, contenuDate, pseudo, idUser) VALUES (?,NOW(), ?,?)`, [forumReqData.post, forumReqData.pseudo, forumReqData.idUser], (err, res) => {
     if (err) {
-      console.log("Erreur lors de l'insertion du forum");
+      console.log("Erreur lors de l'insertion du forum", err);
       result(null, err);
     } else{
       console.log("Forum créé avec succès");
