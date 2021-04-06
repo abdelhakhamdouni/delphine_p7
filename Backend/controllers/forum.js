@@ -1,5 +1,7 @@
 /*const sql = require('../models/db');*/
 const forumModel = require('../models/forum');
+const sql = require('../models/db');
+
 /*const User =require('../models/user');*/
 
 //Suppression d'un forum
@@ -37,14 +39,15 @@ exports.createForum =(req, res) => {
 
 //Récupération de tous les forums
 exports.getAllForums = (req, res) => {
-  console.log('Ici tous les posts');
-  forumModel.getAllForums((err, forum) =>{
-    console.log('Ici récupération de tous les post de la base de données');
-    if (err)
-    res.send(err);
-    console.log('Forums', forum);
-    res.send(forum);
-  })
+  sql.query(`SELECT * FROM forums`, (err, result) => {
+    if (err) {
+      console.log("Erreur lors de la récupération des forums ", err);
+      res.status(500).json(err)
+    } else{    
+    console.log("Forums récupérés avec succès", res);
+    res.status(200).json({result})
+    }
+  });
 };
 
 //Récupération d'un forum avec l'id

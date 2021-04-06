@@ -24,7 +24,7 @@
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-2 text-center">
-                    <button type="submit" :click="submitFormForum" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Poster</button>
+                    <button type="submit" @click.prevent="submitFormForum" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Poster</button>
                 </div>            
             </form>
         </div>
@@ -34,9 +34,8 @@
             </section>
             <section v-else>
                 <div v-if="loading">Chargement...</div>
-                <div v-else v-for-key="forums" class="forums">
-                    {{ forum.description }}
-                    
+                <div v-else v-for="post in info" :key="post.idForum" class="forums">
+                    <p>{{post.contentuTexte}}</p>
                 </div>
             </section>
         </div>   
@@ -48,7 +47,9 @@
 </template>
 
 <script>
+
 import axios from 'axios'
+
 export default {
     name: 'forum',
     data(){
@@ -91,18 +92,26 @@ export default {
             .catch(error => alert("Erreur : " + error));
             }
         },
-        getPosts(){
-            axios
-                .get ("http://localhost:3000/api/forum/")
-                .then( response => {
-                    this.info = response.data.forum
-                })                
-                .catch(error => {
-                    console.log(error)
-                    this.errored = true
-                })
-                .finally(() => this.loaging = false)
-        }        
+        
+    },
+    created() {
+        axios
+            .get ("http://localhost:3000/api/forum/", {
+                headers: {
+                    "authorization": "Bearer " + localStorage.getItem('token')
+                }
+            })
+            .then( response => {
+                console.log(response)
+                this.loading = false
+                this.error = false
+                this.info = response.data.result
+            })                
+            .catch(error => {
+                console.log(error)
+                this.errored = true
+            })
+        
     }
 }
 </script>

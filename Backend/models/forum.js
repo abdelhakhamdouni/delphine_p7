@@ -41,14 +41,14 @@ Forum.deleteForum =(idForum, result) => {
 };
 
 //Route get AllForums
-Forum.getAllForums = (result) => {
+Forum.getAllForums = () => {
   sql.query(`SELECT * FROM forums`, (err, res) => {
       if (err) {
         console.log("Erreur lors de la récupération des forums ", err);
-        result(null, err);
+        res
       } else{    
       console.log("Forums récupérés avec succès", res);
-      result(null, res);
+      return res;
       }
     });
 };
